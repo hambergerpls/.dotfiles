@@ -1,0 +1,25 @@
+export XDG_CONFIG_HOME=$HOME/.config
+VIM="nvim"
+
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
+
+
+addToPostPath() {
+    if [[ "$PATH" != *"$1"* ]]; then
+        export PATH=$PATH:$1
+    fi
+}
+
+addToPrePath() {
+    if [[ "$PATH" != *"$1"* ]]; then
+        export PATH=$1:$PATH
+    fi
+}
+
+
+addToPrePath $HOME/.local/scripts
+addToPrePath $HOME/.local/bin
+addToPrePath $HOME/.dotfiles
+
+

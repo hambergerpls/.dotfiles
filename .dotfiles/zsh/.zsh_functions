@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+
+addToPostPath() {
+    if [[ "$PATH" != *"$1"* ]]; then
+        export PATH=$PATH:$1
+    fi
+}
+
+addToPrePath() {
+    if [[ "$PATH" != *"$1"* ]]; then
+        export PATH=$1:$PATH
+    fi
+}
+
+my_ip() {
+    if grep -qi WSL /proc/version; then
+	ipconfig.exe | grep 'Wireless LAN adapter Wi-Fi' -A4 | cut -d":" -f 2 | tail -n1 | sed -e 's/\s*//g' | tr -d '\n' | xargs
+    else
+	ip address | grep "eth0" -A2 | awk -F 'inet' '{print $2}' | cut -d ' ' -f 2 | head -n3 | tr -d '\n' | cut -d '/' -f 1 | xargs
+    fi	
+
+}

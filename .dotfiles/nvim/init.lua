@@ -1,0 +1,2 @@
+require("hambergerpls")
+print("hello")
