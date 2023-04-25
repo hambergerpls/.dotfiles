@@ -1,2 +1,0 @@
-require("hambergerpls")
-print("hello")
