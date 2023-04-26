@@ -1,3 +1,6 @@
 [submodule "zsh-snap/znap/zsh-autocomplete"]
 	path = zsh-snap/znap/zsh-autocomplete
 	url = https://github.com/marlonrichert/zsh-autocomplete.git
+[submodule "zsh-snap/zsh-snap"]
+	path = zsh-snap/zsh-snap
+	url = https://github.com/marlonrichert/zsh-snap.git
