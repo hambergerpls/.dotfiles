@@ -31,23 +31,6 @@ if [ -f $ZDOTDIR/.zsh_paths ]; then
     . $ZDOTDIR/.zsh_paths
 fi
 
-# Check if repo exist in $HOME
-# If not exist, will check if in wsl
-# If wsl then check if repo dir not exist
-# in WinUser's home directory then create
-# repo dir in WinUser's home then symlink
-# If linux then create directory
-if ! [ -e $HOME/repo ]; then
-	if grep -qi WSL /proc/version; then
-	  # temporary solution while finding a way
-	  # to get USERPROFILE env without wslu
-	  ln -s /mnt/c/Users/User/repo $HOME/repo
-	else
-	  mkdir $HOME/repo
-	fi
-fi
-
-
 zstyle ':znap:*' repos-dir $DOTFILESDIR/zsh-snap/zsh
 . $DOTFILESDIR/zsh-snap/zsh-snap/znap.zsh
 
