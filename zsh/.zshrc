@@ -34,9 +34,7 @@ fi
 zstyle ':znap:*' repos-dir $DOTFILESDIR/zsh-snap/zsh
 . $DOTFILESDIR/zsh-snap/zsh-snap/znap.zsh
 
-if [[ $TERM != "screen" ]]; then
-	tmux attach-session -t wsl || tmux new -s wsl;
-fi
+tmux attach -t ${PWD} || tmux new -As ${PWD};
 
 
 tmux source $DOTFILESDIR/tmux/.tmux.conf
