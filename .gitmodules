@@ -4,3 +4,12 @@
 [submodule "zsh-snap/zsh-snap"]
 	path = zsh-snap/zsh-snap
 	url = https://github.com/marlonrichert/zsh-snap.git
+[submodule "tmux/plugins/tpm"]
+	path = tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
+[submodule "tmux/plugins/tmux-sensible"]
+	path = tmux/plugins/tmux-sensible
+	url = https://github.com/tmux-plugins/tmux-sensible.git
+[submodule "tmux/plugins/tmux-powerline"]
+	path = tmux/plugins/tmux-powerline
+	url = git@github.com:hambergerpls/tmux-powerline.git
