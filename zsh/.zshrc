@@ -31,13 +31,30 @@ if [ -f $ZDOTDIR/.zsh_paths ]; then
     . $ZDOTDIR/.zsh_paths
 fi
 
-zstyle ':znap:*' repos-dir $DOTFILESDIR/zsh-snap/zsh
-. $DOTFILESDIR/zsh-snap/zsh-snap/znap.zsh
-
-tmux attach -t ${PWD} || tmux new -As ${PWD};
+# Download Znap, if it's not there yet.
+[[ -r $DOTFILESDIR/zsh/zsh-snap/znap/znap.zsh ]] ||
+    git clone --depth 1 -- \
+        https://github.com/marlonrichert/zsh-snap.git $DOTFILESDIR/zsh/zsh-snap/znap
+source $DOTFILESDIR/zsh/zsh-snap/znap/znap.zsh  # Start Znap
 
 
 tmux source $DOTFILESDIR/tmux/.tmux.conf
 setxkbmap us colemak 
 
-eval "$(starship init zsh)"
+znap eval starship 'starship init zsh --print-full-init'
+znap prompt
+
+##
+# Load your plugins with `znap source`.
+#
+znap source marlonrichert/zsh-autocomplete
+znap source marlonrichert/zsh-edit
+znap source marlonrichert/zsh-hist
+
+ZSH_AUTOSUGGEST_STRATEGY=( history )
+znap source zsh-users/zsh-autosuggestions
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=( main brackets )
+znap source zsh-users/zsh-syntax-highlighting
+
+tmux attach -t ${PWD} || tmux new -As ${PWD};
