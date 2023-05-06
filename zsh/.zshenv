@@ -1,3 +1,4 @@
+export ZDOTDIR=$HOME
 export DOTFILESDIR=$HOME/.dotfiles
 export DOTFILES=$HOME/.dotfiles
 export STARSHIP_CONFIG=$DOTFILESDIR/starship/starship.toml
