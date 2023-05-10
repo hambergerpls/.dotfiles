@@ -3,5 +3,5 @@ addToPrePath $DOTFILESDIR/scripts
 addToPrePath $DOTFILESDIR/bin
 addToPrePath $HOME/.local/scripts
 addToPrePath $HOME/.local/bin
-
+addToPrePath $HOME/flutter/bin
 
