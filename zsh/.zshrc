@@ -2,8 +2,8 @@
 # You may want to put all your environment variables into a separate file like
 # ~/.zshenv, instead of adding them here directly.
 
-if [ -f $ZDOTDIR/.zshenv ]; then
-    . $ZDOTDIR/.zshenv
+if [ -f ~/.zshenv ]; then
+    . ~/.zshenv
 fi
 
 
@@ -11,24 +11,24 @@ fi
 # You may want to put all your additions into a separate file like
 # ~/.zsh_aliases, instead of adding them here directly.
 
-if [ -f $ZDOTDIR/.zsh_aliases ]; then
-    . $ZDOTDIR/.zsh_aliases
+if [ -f ~/.zsh_aliases ]; then
+    . ~/.zsh_aliases
 fi
 
 # Function definitions.
 # You may want to put all your additions into a separate file like
 # ~/.zsh_functions, instead of adding them here directly.
 
-if [ -f $ZDOTDIR/.zsh_functions ]; then
-    . $ZDOTDIR/.zsh_functions
+if [ -f ~/.zsh_functions ]; then
+    . ~/.zsh_functions
 fi
 
 # Paths definitions.
 # You may want to put all your additions into a separate file like
 # ~/.zsh_paths, instead of adding them here directly.
 
-if [ -f $ZDOTDIR/.zsh_paths ]; then
-    . $ZDOTDIR/.zsh_paths
+if [ -f ~/.zsh_paths ]; then
+    . ~/.zsh_paths
 fi
 
 # Download Znap, if it's not there yet.
@@ -50,6 +50,8 @@ znap prompt
 znap source marlonrichert/zsh-autocomplete
 znap source marlonrichert/zsh-edit
 znap source marlonrichert/zsh-hist
+znap source ohmyzsh/ohmyzsh plugins/{poetry,git}
+znap source ohmyzsh/ohmyzsh lib/git
 
 ZSH_AUTOSUGGEST_STRATEGY=( history )
 znap source zsh-users/zsh-autosuggestions

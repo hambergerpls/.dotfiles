@@ -3,9 +3,9 @@ if [[ -z $STOW_FOLDERS ]]; then
     STOW_FOLDERS="bin,nvim,tmux,zsh,starship"
 fi
 
-if [[ -z $DOTFILES ]]; then
-    DOTFILES=$HOME/.dotfiles
+if [[ -z $DOTFILESDIR ]]; then
+    DOTFILESDIR=$HOME/.dotfiles
 fi
 
-STOW_FOLDERS=$STOW_FOLDERS DOTFILES=$DOTFILES $DOTFILES/install
+STOW_FOLDERS=$STOW_FOLDERS DOTFILES=$DOTFILESDIR $DOTFILESDIR/install
 
