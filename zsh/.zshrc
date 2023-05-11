@@ -48,13 +48,13 @@ znap prompt
 # Load your plugins with `znap source`.
 #
 znap source marlonrichert/zsh-autocomplete
-znap source marlonrichert/zsh-edit
-znap source marlonrichert/zsh-hist
-znap source ohmyzsh/ohmyzsh plugins/{poetry,git}
-znap source ohmyzsh/ohmyzsh lib/git
+znap source ohmyzsh/ohmyzsh oh-my-zsh.sh \
+	plugins/{git,poetry,pip,python,flutter,npm} \
+	lib/{git,completion,directories,compfix,clipboard}
 
-ZSH_AUTOSUGGEST_STRATEGY=( history )
+ZSH_AUTOSUGGEST_STRATEGY=( history completion )
 znap source zsh-users/zsh-autosuggestions
+znap source zsh-users/zsh-completions
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=( main brackets )
 znap source zsh-users/zsh-syntax-highlighting
