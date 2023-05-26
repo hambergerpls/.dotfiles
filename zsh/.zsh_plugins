@@ -1,0 +1,19 @@
+# List of plugins to be installed
+
+##
+# Load your plugins with `znap source`.
+#
+znap source marlonrichert/zsh-autocomplete
+
+znap source ohmyzsh/ohmyzsh oh-my-zsh.sh \
+	plugins/{git,poetry,pip,python,flutter,npm,docker,docker-compose} \
+	lib/{git,completion,directories,compfix,clipboard}
+
+ZSH_AUTOSUGGEST_STRATEGY=( history completion )
+znap source zsh-users/zsh-autosuggestions
+znap source zsh-users/zsh-completions
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=( main brackets )
+znap source zsh-users/zsh-syntax-highlighting
+
+
