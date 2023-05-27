@@ -92,10 +92,12 @@ source $zsh_plugins
 
 fpath+=$HOME/.cache/oh-my-zsh/completions
 
+# Init completions
 autoload -Uz compinit && compinit
-setxkbmap us colemak 
-
 ZSH_COMPDUMP=${ZSH_COMPDUMP:-${ZDOTDIR:-~}/.zcompdump}
+
+# Set layout to colemak
+setxkbmap us colemak 
 
 # cache .zcompdump for about a day
 if [[ $ZSH_COMPDUMP(#qNmh-20) ]]; then
