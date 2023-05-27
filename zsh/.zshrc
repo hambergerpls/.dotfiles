@@ -1,3 +1,8 @@
+
+if command -v tmux &> /dev/null && [ -n "$PS1" ] &&  [[ ! "$LAUNCHED" == "vscode" ]] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+  exec tmux new -As ${PWD}
+fi
+
 # Environment Variables.
 # You may want to put all your environment variables into a separate file like
 # ~/.zshenv, instead of adding them here directly.
@@ -31,44 +36,78 @@ if [ -f ~/.zsh_paths ]; then
     . ~/.zsh_paths
 fi
 
-# Download Znap, if it's not there yet.
-[[ -r $DOTFILESDIR/zsh/zsh-snap/znap/znap.zsh ]] ||
-    git clone --depth 1 -- \
-        https://github.com/marlonrichert/zsh-snap.git $DOTFILESDIR/zsh/zsh-snap/znap
-source $DOTFILESDIR/zsh/zsh-snap/znap/znap.zsh  # Start Znap
+# Completions.
+# You may want to put all your completions into a separate file like
+# ~/.zsh_completions, instead of adding them here directly.
 
-# Plugin list.
-# You may want to put all your additions into a separate file like
-# ~/.zsh_plugins, instead of adding them here directly.
-
-if [ -f ~/.zsh_plugins ]; then
-    . ~/.zsh_plugins
+if [ -f ~/.zsh_completions ]; then
+    . ~/.zsh_completions
 fi
 
 
-tmux source $DOTFILESDIR/tmux/.tmux.conf
+
+# Download antidote, if it's not there yet.
+[[ -e ~/.antidote ]] ||
+   git clone --depth=1 https://github.com/mattmc3/antidote.git ~/.antidote
+
+
+# [[ -e ~/zsh-defer ]] ||
+#   git clone https://github.com/romkatv/zsh-defer ~/zsh-defer
+# 
+# source ~/zsh-defer/zsh-defer.plugin.zsh
+ 
+source ~/.antidote/antidote.zsh
+
+# set omz variables
+ZSH=$(antidote path ohmyzsh/ohmyzsh)
+ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-zsh"
+
+[[ -d $ZSH_CACHE_DIR ]] || mkdir -p $ZSH_CACHE_DIR && mkdir -p $ZSH_CACHE_DIR/completions
+
+antidote load # Load antidote
+
+
+# Plugin list.
+# You may want to put all your additions into a separate file like
+# ~/.zsh_plugins.txt, instead of adding them here directly.
+
+# Set the name of the static .zsh plugins file antidote will generate.
+zsh_plugins=~/.zsh_plugins.zsh
+
+# Ensure a .zsh_plugins.txt file to add plugins.
+[[ -f ${zsh_plugins:r}.txt ]] || touch ${zsh_plugins:r}.txt
+
+# Lazy-load antidote.
+fpath+=(~/.antidote)
+autoload -Uz $fpath[-1]/antidote
+
+
+# Generate static file in a subshell when .zsh_plugins.txt is updated.
+if [[ ! $zsh_plugins -nt ${zsh_plugins:r}.txt ]]; then
+	(envsubst <${zsh_plugins:r}.txt | antidote bundle >|$zsh_plugins)
+fi
+
+# Source static plugins file.
+source $zsh_plugins
+
+fpath+=$HOME/.cache/oh-my-zsh/completions
+
+autoload -Uz compinit && compinit
 setxkbmap us colemak 
 
-znap eval starship 'starship init zsh --print-full-init'
-znap prompt
+ZSH_COMPDUMP=${ZSH_COMPDUMP:-${ZDOTDIR:-~}/.zcompdump}
 
-tmux attach -t ${PWD} || tmux new -As ${PWD};
+# cache .zcompdump for about a day
+if [[ $ZSH_COMPDUMP(#qNmh-20) ]]; then
+  compinit -C -d "$ZSH_COMPDUMP"
+else
+  compinit -i -d "$ZSH_COMPDUMP"; touch "$ZSH_COMPDUMP"
+fi
+{
+  # compile .zcompdump
+  if [[ -s "$ZSH_COMPDUMP" && (! -s "${ZSH_COMPDUMP}.zwc" || "$ZSH_COMPDUMP" -nt "${ZSH_COMPDUMP}.zwc") ]]; then
+    zcompile "$ZSH_COMPDUMP"
+  fi
+} &!
 
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# bun completions
-[ -s "/home/danial/.bun/_bun" ] && source "/home/danial/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-# pnpm
-export PNPM_HOME="/home/danial/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
+eval "$(starship init zsh --print-full-init)"
