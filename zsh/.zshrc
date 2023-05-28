@@ -107,4 +107,5 @@ fi
   fi
 } &!
 
+# Start Starship
 eval "$(starship init zsh --print-full-init)"
