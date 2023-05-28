@@ -8,6 +8,8 @@ do
 done
 popd
 
+fc-cache -vf ~/.local/share/fonts/
+
 #pushd ./moisystems
 #./stow
 #popd
