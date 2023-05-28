@@ -1,4 +1,13 @@
 
+# Required Dependencies.
+# You may want to put all your required dependencies into a separate file like
+# ~/.zsh_repos, instead of adding them here directly.
+
+if [ -f ~/.zsh_repos ]; then
+    . ~/.zsh_repos
+fi
+
+
 if command -v tmux &> /dev/null && [ -n "$PS1" ] &&  [[ ! "$LAUNCHED" == "vscode" ]] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
   exec tmux new -As ${PWD}
 fi
@@ -43,18 +52,6 @@ fi
 if [ -f ~/.zsh_completions ]; then
     . ~/.zsh_completions
 fi
-
-
-
-# Download antidote, if it's not there yet.
-[[ -e ~/.antidote ]] ||
-   git clone --depth=1 https://github.com/mattmc3/antidote.git ~/.antidote
-
-
-# [[ -e ~/zsh-defer ]] ||
-#   git clone https://github.com/romkatv/zsh-defer ~/zsh-defer
-# 
-# source ~/zsh-defer/zsh-defer.plugin.zsh
  
 source ~/.antidote/antidote.zsh
 
@@ -66,11 +63,9 @@ ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-zsh"
 
 antidote load # Load antidote
 
-
-# Plugin list.
+# Plugins.
 # You may want to put all your additions into a separate file like
 # ~/.zsh_plugins.txt, instead of adding them here directly.
-
 # Set the name of the static .zsh plugins file antidote will generate.
 zsh_plugins=~/.zsh_plugins.zsh
 
