@@ -51,4 +51,13 @@ return require('packer').startup(function(use)
 		  'nvim-lua/plenary.nvim',
 	  },
   }
+
+  use {
+	  "kwkarlwang/bufjump.nvim",
+	  config = function()
+		  require("bufjump").setup()
+	  end
+  }
+
+
 end)
