@@ -1,2 +1,1 @@
 require("hambergerpls")
-print("hello")
