@@ -1,4 +1,5 @@
 local lsp = require("lsp-zero")
+local lsp_config = require("lspconfig")
 
 lsp.preset("recommended")
 
@@ -42,7 +43,7 @@ lsp.setup_nvim_cmp({
   mapping = cmp_mappings
 })
 
-lsp.on_attach(function(client, bufnr)
+local on_attach = function(_, bufnr)
   local opts = {buffer = bufnr, remap = false}
 
   vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
@@ -55,15 +56,40 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
   vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-end)
+end
 
-lsp.setup()
+lsp.on_attach(on_attach)
+
 
 vim.diagnostic.config({
     virtual_text = true
 })
 
-require('lspconfig').dartls.setup{}
+local dart_lsp = lsp.build_options('dartls',{
+	on_attach = on_attach,
+	cmd = { "dart", "language-server", "--protocol=lsp" },
+	init_options = {
+		closingLabels = true,
+		flutterOutline = true,
+		onlyAnalyzeProjectsWithOpenFiles = true,
+		outline = true,
+		suggestFromUnimportedLibraries = true,
+	},
+	filetypes = { "dart" },
+	--root_dir = lsp_config.util.root_pattern("pubspec.yaml"),
+	settings = {
+		dart = {
+			analysisExcludedFolders = {
+				vim.fn.expand("$HOME/.pub-cache"),
+				vim.fn.expand("$HOME/flutter/"),
+			},
+			updateImportsOnRename = true,
+			completeFunctionCalls = true,
+			showTodos = true,
+		},
+	},
+})
 
-local dart_lsp = lsp.build_options('dartls', {})
+lsp.setup()
+
 require('flutter-tools').setup({lsp = dart_lsp})
