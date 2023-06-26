@@ -6,3 +6,4 @@ addToPrePath $HOME/.local/bin
 addToPrePath $HOME/flutter/bin
 addToPrePath $BUN_INSTALL/bin
 addToPrePath $PNPM_HOME
+addToPrePath $DENO_INSTALL/bin

@@ -18,7 +18,7 @@ return require('packer').startup(function(use)
 
   use ('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
 
-  use ('theprimeagen/harpoon') 
+  use ('theprimeagen/harpoon')
 
   use ('mbbill/undotree')
 
@@ -45,10 +45,15 @@ return require('packer').startup(function(use)
   	  }
   }
 
+  use ('mfussenegger/nvim-dap')
+
+  use ('dart-lang/dart-vim-plugin')
+  
   use {
 	  'akinsho/flutter-tools.nvim',
 	  requires = {
 		  'nvim-lua/plenary.nvim',
+          'stevearc/dressing.nvim',
 	  },
   }
 
@@ -58,6 +63,5 @@ return require('packer').startup(function(use)
 		  require("bufjump").setup()
 	  end
   }
-
 
 end)

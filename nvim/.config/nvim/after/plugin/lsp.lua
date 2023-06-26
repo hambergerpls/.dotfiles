@@ -12,6 +12,8 @@ lsp.ensure_installed({
 	'docker_compose_language_service',
 	'jsonls',
 	'marksman',
+    'ruff_lsp',
+    'pyright',
 })
 
 -- Fix Undefined global 'vim'
@@ -44,6 +46,8 @@ lsp.setup_nvim_cmp({
 })
 
 local on_attach = function(_, bufnr)
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
   local opts = {buffer = bufnr, remap = false}
 
   vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
@@ -65,31 +69,8 @@ vim.diagnostic.config({
     virtual_text = true
 })
 
-local dart_lsp = lsp.build_options('dartls',{
-	on_attach = on_attach,
-	cmd = { "dart", "language-server", "--protocol=lsp" },
-	init_options = {
-		closingLabels = true,
-		flutterOutline = true,
-		onlyAnalyzeProjectsWithOpenFiles = true,
-		outline = true,
-		suggestFromUnimportedLibraries = true,
-	},
-	filetypes = { "dart" },
-	--root_dir = lsp_config.util.root_pattern("pubspec.yaml"),
-	settings = {
-		dart = {
-			analysisExcludedFolders = {
-				vim.fn.expand("$HOME/.pub-cache"),
-				vim.fn.expand("$HOME/flutter/"),
-			},
-			updateImportsOnRename = true,
-			completeFunctionCalls = true,
-			showTodos = true,
-		},
-	},
-})
-
 lsp.setup()
 
-require('flutter-tools').setup({lsp = dart_lsp})
+lsp_config.ruff_lsp.setup {
+    on_attach = on_attach,
+}
