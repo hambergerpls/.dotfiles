@@ -14,3 +14,6 @@ addToPrePath $ANDROID_HOME/platform-tools
 addToPrePath $ANDROID_HOME/emulator
 addToPrePath $HOME/.pub-cache/bin
 addToPrePath $HOME/.cargo/bin
+addToPrePath $HOME/go/bin
+addToPrePath $HOME/.local/.npm-global/bin
+addToPrePath $FLYCTL_INSTALL/bin
