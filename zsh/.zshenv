@@ -10,6 +10,8 @@ export N_PREFIX="$HOME/.local/.npm-global"
 export FLYCTL_INSTALL="$HOME/.fly"
 export XDG_CURRENT_DESKTOP=sway
 export XDG_SESSION_TYPE=wayland
+export FLYCTL_INSTALL="$HOME/.fly"
+export PYENV_ROOT="$HOME/.pyenv"
 ZSH_HIGHLIGHT_HIGHLIGHTERS=( main brackets )
 ZSH_AUTOSUGGEST_STRATEGY=( history completion )
 . "$HOME/.cargo/env"
