@@ -109,3 +109,6 @@ fi
 
 # Start Starship
 eval "$(starship init zsh --print-full-init)"
+
+# bun completions
+[ -s "/home/hambergerpls/.bun/_bun" ] && source "/home/hambergerpls/.bun/_bun"
